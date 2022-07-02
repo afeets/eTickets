@@ -1,4 +1,5 @@
 using eTickets.Data;
+using eTickets.Data.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,8 +39,16 @@ namespace eTickets
                 options.UseSqlServer(builder.ConnectionString)
             );
 
+            
+            // Services Configuration
+            services.AddScoped<IActorsService, ActorsService >();
+
+
             services.AddControllersWithViews();
         }
+
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
