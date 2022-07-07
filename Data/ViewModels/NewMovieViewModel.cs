@@ -11,6 +11,8 @@ namespace eTickets.Models
 {
     public class NewMovieViewModel
     {
+        public int Id { get; set; }
+        
         [Required(ErrorMessage = "Must enter movie name")]
         [Display(Name = "Movie Name")]
         public string Name { get; set; }
