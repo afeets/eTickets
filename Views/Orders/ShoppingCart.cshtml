@@ -28,12 +28,12 @@
                         <td class="align-middle">@item.Amount</td>
                         <td class="align-middle">@item.Movie.Name</td>
                         <td class="align-middle">@item.Movie.Price</td>
-                        <td class="align-middle">@((item.Amount * item.Movie.Price)).ToString("c")</td>
+                        <td class="align-middle">@((item.Amount*item.Movie.Price).ToString("c"))</td>
                         <td class="align-middle">
-                            <a asp-controller="Orders" asp-action="RemoveItemFromShoppingCart" asp-route-id="@item.Movie.Id" class="text-danger">
+                            <a asp-controller="Orders" asp-action="RemoveFromShoppingCart" asp-route-id="@item.Movie.Id" class="text-danger">
                                 <i class="bi bi-cart-dash"></i>
                             </a>
-                            <a asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Movie.Id" class="text-success">
+                            <a asp-controller="Orders" asp-action="AddToShoppingCart" asp-route-id="@item.Movie.Id" class="text-success">
                                 <i class="bi bi-cart-plus"></i>
                             </a>
                         </td>

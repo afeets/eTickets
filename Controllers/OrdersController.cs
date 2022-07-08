@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using eTickets.Data.Cart;
 using eTickets.Data.Services;
 using eTickets.Data.ViewModels;
@@ -27,6 +28,29 @@ namespace eTickets.Controllers
             };
 
             return View(response);
+        }
+
+        public async Task<RedirectToActionResult> AddToShoppingCart(int id)
+        {
+            var item = await _moviesService.GetMovieByIdAsync(id);
+
+            if (item != null)
+            {
+                _shoppingCart.AddItemToCart(item);
+            }
+            return RedirectToAction(nameof(ShoppingCart));
+        }
+
+
+        public async Task<RedirectToActionResult> RemoveFromShoppingCart(int id)
+        {
+            var item = await _moviesService.GetMovieByIdAsync(id);
+
+            if (item != null)
+            {
+                _shoppingCart.RemoveItemFromCart(item);
+            }
+            return RedirectToAction(nameof(ShoppingCart));
         }
     }
 }
