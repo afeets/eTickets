@@ -15,7 +15,10 @@
                     <th>@Html.DisplayNameFor( model => model.ProfilePictureURL )</th>
                     <th>@Html.DisplayNameFor( model => model.FullName )</th>
                     <th>@Html.DisplayNameFor( model => model.Bio )</th>
+                     @if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
                     <th>Actions</th>
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -31,6 +34,8 @@
                         <td class="align-middle">
                             @Html.DisplayFor(modelItem => item.Bio)
                         </td>
+                         @if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
                         <td class="align-middle">
                             <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id">
                                 <i class="bi bi-pencil-square">Edit</i>
@@ -42,6 +47,7 @@
                                 <i class="bi bi-trash">Delete</i>
                             </a>
                         </td>
+                        }
                     </tr>
                 }
             </tbody>
