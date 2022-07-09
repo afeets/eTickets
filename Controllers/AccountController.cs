@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using eTickets.Data;
+using eTickets.Data.Static;
 using eTickets.Data.ViewModels;
 using eTickets.Models;
 using Microsoft.AspNetCore.Identity;
@@ -46,5 +47,43 @@ namespace eTickets.Controllers
             return View(loginViewModel);
         }
         
+        public IActionResult Register() => View(new RegisterViewModel());
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
+        {
+            if(!ModelState.IsValid) return View(registerViewModel);
+
+            // check if Email Address is already taken
+            var user = await _userManager.FindByEmailAsync(registerViewModel.EmailAddress);
+            if(user != null)
+            {
+                TempData["Error"] = "This email address is already in use";
+                return View(registerViewModel);
+            }
+
+            var newUser = new ApplicationUser()
+            {
+                FullName    = registerViewModel.FullName,
+                Email       = registerViewModel.EmailAddress,
+                UserName    = registerViewModel.EmailAddress,
+            };
+
+            var newUserResponse = await _userManager.CreateAsync(newUser, registerViewModel.Password);
+
+            if(newUserResponse.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(newUser, UserRoles.User);
+            }
+
+            return View("RegisterComplete");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index","Movies");
+        }
     }
 }
