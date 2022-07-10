@@ -4,7 +4,7 @@ namespace eTickets.Data.ViewModels
 {
     public class RegisterViewModel
     {
-         [Display(Name = "Full Name")]
+        [Display(Name = "Full Name")]
         [Required(ErrorMessage = "Full Name is required")]
         public string FullName { get; set; }
         
