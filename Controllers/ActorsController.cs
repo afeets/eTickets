@@ -2,11 +2,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using eTickets.Data;
 using eTickets.Data.Services;
+using eTickets.Data.Static;
 using eTickets.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eTickets.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class ActorsController : Controller
     {
         // private readonly AppDbContext _context;
@@ -17,6 +20,7 @@ namespace eTickets.Controllers
             _service = service;
         }
         
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var allActors = await _service.GetAllAsync();
@@ -43,6 +47,7 @@ namespace eTickets.Controllers
         }
 
         // Get: Actors/Details/[id]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             // Check if Actor exists
